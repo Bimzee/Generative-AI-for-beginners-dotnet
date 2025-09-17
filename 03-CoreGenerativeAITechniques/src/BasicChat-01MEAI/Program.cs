@@ -14,7 +14,7 @@ if(string.IsNullOrEmpty(githubToken))
 IChatClient client = new ChatCompletionsClient(
         endpoint: new Uri("https://models.github.ai/inference"),
         new AzureKeyCredential(githubToken))
-        .AsIChatClient("Phi-3.5-MoE-instruct");
+        .AsIChatClient("openai/gpt-4.1"); //openai/gpt-4.1
 
 // here we're building the prompt
 StringBuilder prompt = new StringBuilder();
@@ -23,6 +23,7 @@ prompt.AppendLine("I bought this product and it's amazing. I love it!");
 prompt.AppendLine("This product is terrible. I hate it.");
 prompt.AppendLine("I'm not sure about this product. It's okay.");
 prompt.AppendLine("I found this product based on the other reviews. It worked for a bit, and then it didn't.");
+
 
 // send the prompt to the model and wait for the text completion
 var response = await client.GetResponseAsync(prompt.ToString());

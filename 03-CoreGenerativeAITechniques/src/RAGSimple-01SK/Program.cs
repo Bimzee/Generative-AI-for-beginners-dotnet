@@ -22,14 +22,25 @@ var question = "What is Bruno's favourite super hero?";
 // intro
 Console.WriteLine($"Question: {question}");
 
-var modelId = "llama3.2";
+var modelId = "gpt-4o-mini";
 
 // Create a chat completion service
 var builder = Kernel.CreateBuilder();
+var githubToken = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
 builder.AddOpenAIChatCompletion(
     modelId: modelId,
-    endpoint: new Uri("http://localhost:11434/v1"),
-    apiKey: "apikey");
+    endpoint: new Uri("https://models.github.ai/inference"),
+    apiKey: githubToken);
+
+// var githubToken = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+
+// IChatClient client = new ChatCompletionsClient(
+//     endpoint: new Uri("https://models.github.ai/inference"),
+//     new AzureKeyCredential(githubToken))
+//     .AsIChatClient("gpt-4o-mini")
+//     .AsBuilder()
+//     .UseFunctionInvocation()
+//     .Build();
 builder.AddLocalTextEmbeddingGeneration();
 Kernel kernel = builder.Build();
 var chat = kernel.GetRequiredService<IChatCompletionService>();

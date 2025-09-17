@@ -3,7 +3,7 @@ using OpenAI.Chat;
 using System.ClientModel;
 using System.Text;
 
-var model = "Phi-3.5-mini-instruct-cuda-gpu";
+var model = "openai/gpt-4.1-cuda-gpu";
 var baseUrl = "http://localhost:5273/v1";
 var apiKey = "unused";
 
